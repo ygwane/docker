@@ -1,0 +1,24 @@
+FROM docker.io/centos:7
+MAINTAINER "ygwane" <ygwane@xx.yy>
+
+# ENV VARs
+ENV container docker
+ENV TZ 'Europe/Paris'
+
+# RPM REPOs
+RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+# UPDATE SYSTEM
+RUN yum -y update ; yum clean all
+
+# COMMANDS
+RUN yum -y install [RPM] ; yum clean all
+RUN [cmds]
+
+# CONFIG
+LABEL "version"="1.0.0"
+LABEL "description"="RPM image"
+EXPOSE 12345
+VOLUME [ "/var/lib/prog", "/var/log/prog" ]
+ENTRYPOINT [ "/usr/bin/prog", "--config=/etc/prog.conf", "--pid=/var/run/prog/prog.pid" ]
+
